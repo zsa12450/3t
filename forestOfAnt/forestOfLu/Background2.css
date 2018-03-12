@@ -2,7 +2,7 @@
     background-image: url("img/background.jpg");
     width: 640px;
     height: 832px;
-    position: relative;
+    position: absolute;
     margin: 0 auto;
 }
 .userHead1{
