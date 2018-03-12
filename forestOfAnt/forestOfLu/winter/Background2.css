@@ -1,0 +1,95 @@
+.body{
+    background-image: url("img/background.jpg");
+    width: 640px;
+    height: 832px;
+    position: absolute;
+    margin: 0 auto;
+}
+.userHead1{
+    width: 100px;
+    height: 100px;
+    background-image: url("img/allElement.png");
+    position: relative;
+    left: 30px;
+    bottom: -734px;
+}
+.icon1{
+    background-position: 0px -5px;
+}
+.userHead2{
+    width: 100px;
+    height: 100px;
+    background-image: url("img/allElement.png");
+    position: relative;
+    left: 119px;
+    bottom: -636px;
+}
+.icon2{
+    background-position: 195px -5px;
+}
+.userHead3{
+    width: 100px;
+    height: 100px;
+    background-image: url("img/allElement.png");
+    position: relative;
+    left: 197px;
+    bottom: -536px;
+}
+.icon3{
+    background-position: 400px -5px;
+}
+.userHead4{
+    width: 100px;
+    height: 100px;
+    background-image: url("img/allElement.png");
+    position: relative;
+    left: 470px;
+    bottom: -406px;
+}
+.icon4{
+    background-position: 695px 187px;
+}
+.userHead5{
+    width: 100px;
+    height: 100px;
+    background-image: url("img/allElement.png");
+    position: relative;
+    left: 545px;
+    bottom: 243px;
+}
+.icon5{
+    background-position: 800px 187px;
+}
+.userHead6{
+    width: 100px;
+    height: 100px;
+    background-image: url("img/allElement.png");
+    position: relative;
+    left: 512px;
+    bottom: 416px;
+}
+.icon6{
+    background-position: 908px 187px;
+}
+.userHead7{
+    width: 50px;
+    height: 50px;
+    background-image: url("img/lu.png");
+    position: relative;
+    left: 329px;
+    bottom: -51px;
+}
+.icon7{
+    background-position: -352px 332px;
+}
+.userHead8{
+    width: 220px;
+    height: 270px;
+    background-image: url("img/lu.png");
+    position: relative;
+    left: 65px;
+    bottom: 200px;
+}
+.icon8{
+    background-position: 996px 24px;
+}
