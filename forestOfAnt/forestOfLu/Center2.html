@@ -41,9 +41,9 @@
     }
     event.ondblclick = function (ev) {
         windGrade ++;
-        // if(windGrade > 10){
-        //     windGrade = 0;
-        // }
+        if(windGrade > 10){
+            windGrade = 0;
+        }
         wind_run(windGrade);
     }
     //停止按钮
