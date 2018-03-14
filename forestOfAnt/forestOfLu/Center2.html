@@ -5,11 +5,12 @@
     <title>Title</title>
     <link rel="stylesheet" href="Background2.css" type="text/css">
     <style type="text/css">
-        .snow{
+        .snow {
             position: absolute;
             color: #fff;
         }
     </style>
+    <script type="text/javascript" src="js/jquery-1.12.4.js" charset="UTF-8"></script>
 </head>
 <body>
 <div class="header"></div>
@@ -22,27 +23,33 @@
     <div class="userHead6 icon6"></div>
     <div class="userHead7 icon7"></div>
     <div class="userHead8 icon8"></div>
+    <div id="playerContent" style="display: none;">
+        <input id="intro" type="text">
+        <input id="btn1" type="button" value="确定">
+    </div>
 </div>
 <div class="footer"></div>
 <script type="text/javascript" src="js/snow.js">
 </script>
 <script type="text/javascript">
-    document.getElementById("prop").onclick = function (ev) {
-        var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI("你好啊");
+$(function () {
+    function player(ev) {
+    var info = $("#intro").val();
+        var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(info);
         var n = new Audio(url);
         /*设置请求路径*/
         n.src = url;
         /*开始播放音乐*/
         n.play();
     }
-    document.getElementById("map").onmouseover = function (ev) {
-        this.style.width = 150 + "px";
-        this.style.height = 150 + "px";
-    }
-    document.getElementById("map").onmouseout = function (ev) {
-        this.style.width = 100 + "px";
-        this.style.height = 100 + "px";
-    }
+    $("#prop").click(function () {
+       $("#playerContent").show();
+    });
+    $("#btn1").click(function () {
+       player();
+       $("#playerContent").hide();
+    });
+});
 </script>
 </body>
 </html>

@@ -45,7 +45,7 @@ function makeSnow() {
     box.appendChild(snow);
     goDown(snow.id,snow.id,8*Math.random());
     //控制制造雪花的时间
-    var makeTime = 1000 * Math.random() * Math.random();
+    var makeTime = 2000 * Math.random() * Math.random();
     stopSnow = setTimeout(makeSnow,makeTime);
 }
 //移除标签的函数
