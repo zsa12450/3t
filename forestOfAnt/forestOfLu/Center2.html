@@ -23,25 +23,19 @@
     <div class="userHead7 icon7"></div>
     <div class="userHead8 icon8"></div>
 </div>
+<input id="intro" type="text" hidden="hidden" value="这里是三组的小Demo">
 <div class="footer"></div>
 <script type="text/javascript" src="js/snow.js">
 </script>
 <script type="text/javascript">
     document.getElementById("prop").onclick = function (ev) {
-        var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI("你好啊");
+        var info = document.getElementById("intro");
+        var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(info.value);
         var n = new Audio(url);
         /*设置请求路径*/
         n.src = url;
         /*开始播放音乐*/
         n.play();
-    }
-    document.getElementById("map").onmouseover = function (ev) {
-        this.style.width = 150 + "px";
-        this.style.height = 150 + "px";
-    }
-    document.getElementById("map").onmouseout = function (ev) {
-        this.style.width = 100 + "px";
-        this.style.height = 100 + "px";
     }
 </script>
 </body>
