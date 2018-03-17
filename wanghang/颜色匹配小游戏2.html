@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1 {
+            width: 100%;height: 100%;
+            /*绝对定位*/
+            position: absolute;
+            background-image: url("../img/122532ycg2284qgx6pndnw.gif");
+
+        }
+        #divtop {
+            width: 600px;height: 100px;
+            background-color: #1C1C1C;margin: 0 auto;
+        }
+        #divbottom {
+            width: 600px;height: 500px;background-color: white;
+            margin: 0 auto;
+            border-radius: 20px;
+        }
+        #divleg {
+            width: 600px;height: 100px;
+            background-color: #1C1C1C;margin: 0 auto;
+            position: relative;
+        }
+        #hinge {
+            width: 570px;height: 470px;margin: 15px;
+            background-color: #000;position: absolute;
+        }
+        #hinge span {
+            width: 57px;height: 47px;
+            position:absolute;
+        }
+        #divleg span {width: 50px;height: 50px;margin-top: 45px;}
+        #divtop span {width: 200px;height: 100px;position: absolute;
+                        font-family: "楷体";}
+        .topspan {width: 300px;height: 100px;position: absolute;font-family: "楷体"}
+        u {font-size: 30px; margin-top: 50px; margin-left: 20px; position: absolute;
+            cursor: pointer;color: blueviolet}
+        .i1 {font-size: 30px;margin-top: 50px;margin-left: 10px;position: absolute;
+            cursor: pointer; color: whitesmoke}
+        .u2 {font-size:30px;margin-top: 40px;margin-left: 50px;cursor: pointer}
+        .divClass {margin-left: 171px;margin-top: 188px;z-index: 999;}
+        .topspan {margin-left: 400px}
+        .span1 {position: absolute;margin-left: 11px;}
+        .span2 {position: absolute;margin-left: 151px;}
+        .span3 {position: absolute;margin-left: 281px}
+        .span4 {position: absolute;margin-left: 411px}
+        .span5 {position: absolute;margin-left: 541px}
+        #divleg span {border-radius: 5px;cursor: pointer;}
+    </style>
+    <script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+    <script type="text/javascript">
+        var allColor = ["28F7FF","#b6ff3d","#ff4335","#e75efc","#78514f",
+            "#fcae36","#0ca224","#5a1872","#077270","#9f9fa3"];
+        $(function () {
+            var str = $("#hinge").html();
+            //span坐标
+            var left = 0; var top = 0;
+            for(var i = 0; i < 100; i++) {
+            if(i==0) {
+                str += "<span class='item' style='top:"+top+"px ;left: "+left+"px'></span>";
+            }else if(i%10==0){
+                left = 0;
+                top+=47;
+                str += "<br/><span style='top:"+top+"px ;left: "+left+"px'></span>";
+            }else {
+                left+=57;
+                str += "<span style='top:"+top+"px ;left: "+left+"px'></span>";
+            }
+        }
+            $("#hinge").html(str);
+            //----------------------------------
+            function method() {
+                var str = "";
+                var sum = 0;
+                var spans = $("#divleg span");
+                var spanColor = [""];
+                while (true) {
+                    var num = Math.ceil(Math.random() * 9);
+                    if (str.indexOf(num + "") == -1) {
+                        $(spans[sum]).css("background-color", allColor[num]);
+                        spanColor.push(allColor[num]);
+                        sum++;
+                        str += num;
+                    }
+                    if (sum == spans.length) {
+                        break;
+                    }
+                }
+                var allSpan = $("#hinge span");
+                $(allSpan).each(function () {
+                    var num = Math.ceil(Math.random() * 5);
+                    $(this).css("background-color", spanColor[num]);
+                });
+                var bushu = 0;
+                $("i1").html(ss);
+                var ss = "Moves "+bushu+"/35";
+                $("#divleg span").click(function () {
+                    bushu++; ss = "Moves "+bushu+"/35";$(".i1").html(ss);
+                    var color = $(this).css("background-color");
+                    var tiles = $("#hinge span");
+                    for (var x = 0; x < 100; x++) {
+                        if (tiles[x].className.indexOf("item") > -1) {
+                            $(tiles[x]).css("background-color", color);
+                            if (x + 1 < 100 && $(tiles[x + 1]).css("background-color") == color) {
+                                $(tiles[x + 1]).addClass("item");
+                                $(tiles[x + 1]).css("background-color", color);
+                            }
+                            if (x + 10 < 100 && $(tiles[x + 10]).css("background-color") == color) {
+                                $(tiles[x + 10]).addClass("item");
+                                $(tiles[x + 10]).css("background-color", color);
+
+                            }
+                            if (x - 1 >= 0 && x % 10 > 0 && $(tiles[x - 1]).css("background-color") == color) {
+                                $(tiles[x - 1]).addClass("item");
+                                $(tiles[x - 1]).css("background-color", color);
+
+                            }
+                            if (x - 10 >= 0 && x % 10 > 0 && $(tiles[x - 10]).css("background-color") == color) {
+                                $(tiles[x - 10]).addClass("item");
+                                $(tiles[x - 10]).css("background-color", color);
+                            }
+                        }
+                    }
+                    if(bushu>34&&$(".item").size()<100) {
+                        $("#hinge span").css("display","none");
+                        $(".divClass").css("background-color","black");
+                        $(".divClass").css("display","block");
+                        $(".divClass").html("<u class='u2'>Game Over!</u>");
+                        $("#divleg span").unbind("click");
+                    }else {
+                        var n = $(".item").size();
+                        if (n == 100) {
+                            end(color);
+                            $(".divClass").html("<u class='u2'>You Win！</u>");
+                            $("#divleg span").unbind("click");
+                        }
+                    }
+                });
+            }
+            method();
+            $("#divtop u").click(function () {
+                $("#hinge span").css("display","block");
+                $(".i1").html("Moves 0/35");
+               method2();
+                method();
+            });
+
+            $(".divClass").click (function () {
+                $("#hinge span").css("display","block");
+                $(".i1").html("Moves 0/35");
+                method2();
+                method();
+            });
+
+            function end(obj) {
+                $(".item:eq(43)").css("display","none");$(".item:eq(53)").css("display","none");
+                $(".item:eq(44)").css("display","none");$(".item:eq(54)").css("display","none");
+                $(".item:eq(45)").css("display","none");$(".item:eq(55)").css("display","none");
+                $(".item:eq(46)").css("display","none");$(".item:eq(56)").css("display","none");
+                var divClassObj = $(".divClass");
+                divClassObj.css("background-color",obj);
+                divClassObj.css("display","block");
+            }
+            function method2() {
+                $(".item:eq(43)").css("display","block");$(".item:eq(53)").css("display","block");
+                $(".item:eq(44)").css("display","block");$(".item:eq(54)").css("display","block");
+                $(".item:eq(45)").css("display","block");$(".item:eq(55)").css("display","block");
+                $(".item:eq(46)").css("display","block");$(".item:eq(56)").css("display","block");
+                $("#hinge span:gt(0)").removeClass("item");
+                $(".divClass").css("display","none");
+            }
+        });
+    </script>
+</head>
+<body>
+        <div id="div1">
+            <div id="divtop">
+                <span><u>New Game</u></span>
+                <span class="topspan"><i class="i1"></i></span>
+            </div>
+            <div id="divbottom">
+                <div id="hinge">
+                    <div style="width: 228px;height: 94px;display: none;" class="divClass"></div>
+                </div>
+            </div>
+            <div id="divleg">
+                <span class="span1"></span>
+                <span class="span2"></span>
+                <span class="span3"></span>
+                <span class="span4"></span>
+                <span class="span5"></span>
+            </div>
+        </div>
+</body>
+</html>
