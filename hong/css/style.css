@@ -1,0 +1,104 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#imgDiv, #albumId {
+    display: none;
+}
+
+#sp1 {
+    position: relative;
+    left: 200px;
+    top: 300px;
+}
+
+#sp2 {
+    position: relative;
+    left: 400px;
+    top: 300px;
+}
+
+#sp3 {
+    position: relative;
+    left: 600px;
+    top: 300px;
+}
+
+#sp4 {
+    position: relative;
+    left: 1000px;
+    top: 500px;
+}
+
+.satic-area {
+    /*相对于div定位*/
+    /*position: relative;*/
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/背景图.jpg");
+    background-size: cover;
+}
+
+.dynamic-area1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url("../img/动画2.png");
+    background-size: cover;
+    animation: posterDrop1 600s linear infinite;
+}
+
+@keyframes posterDrop1 {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 4000% 0;
+    }
+}
+
+.dynamic-area2 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url("../img/动画1.png");
+    background-size: cover;
+    /*animation: posterDrop2 8000s linear infinite;*/
+}
+
+@keyframes posterDrop2 {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 30000% 0;
+    }
+}
+
+span img {
+    width: 3%;
+    height: 3%;
+}
+
+#imgWcId {
+    position: relative;
+    left: 400px;
+    top: 40px;
+}
+
+#albumId {
+    position: relative;
+    margin: 0 auto;
+    left: -50px;
+    top: 180px;
+}
