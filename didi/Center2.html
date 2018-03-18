@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<link rel="stylesheet" href="Background2.css" type="text/css">-->
+    <style>
+        #wrap {
+            position: relative;
+            height: 200px;
+            width: 200px;
+			margin:0 auto;
+        }
+
+        #wrap span {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            border: 1px solid #48FF3B;
+            /*background-image: url("../img/19.jpg");*/
+            /*border;*/
+        }
+		#content {
+		margin:0 auto;
+		}
+    </style>
+    <script type="text/javascript" src="jquery-1.12.4.js" charset="UTF-8"></script>
+</head>
+<body>
+<div class="header"></div>
+<div id="box" class="body">
+    <div id="playerContent" style="display: block;">
+        <!--<input id="btn1" type="button" value="确定">-->
+    </div>
+    <div id="wrap"></div>
+    <div>
+        <input id="intro" type="text" value="" autofocus="">请输入你想说的话
+        <button id="btn1">确定</button>
+    </div>
+    <div>
+        <div><input type="text" id="colorId">请输入您想添加的颜色&nbsp;&nbsp;<input type="button" id="colorbt" value="确认"></div>
+    </div>
+    <div>
+        <div id="teteid"><canvas id="content" width="768px" height="423px"></canvas></div>
+        <div><input type="button" value="开始" id="no1">
+            <input type="button" value="加速" id="no12">
+            <input type="button" value="隐藏" id="no13">
+            <input type="button" value="显示" id="no14"></div>
+</div>
+<div class="footer"></div>
+</div>
+<script type="text/javascript" src="js/snow.js">
+</script>
+<script type="text/javascript">
+    $(function () {
+        function player(ev) {
+            var info = $("#intro").val();
+            var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(info);
+            var n = new Audio(url);
+            /*设置请求路径*/
+            n.src = url;
+            /*开始播放音乐*/
+            n.play();
+        }
+
+        function wow() {
+            //创建画布
+            var canvas = document.createElement('canvas');
+            //画布设置为2d
+            var ctx = canvas.getContext('2d');
+            // 画布的初始长度
+            var cols = 16;
+            //画布的初始宽度
+            var rows = 16;
+
+            function lattice(txt) {
+                //根据输入的文本长度重新计算画布长度
+                cols = txt.length * 16;
+                //设置画布长度
+                canvas.width = cols;
+                //设置画布宽度
+                canvas.height = rows;
+                //清空画布指定区域的像素 从x的0坐标开始，从y的0坐标开始。到画板大小的宽高。就是整个画板的面积！
+                ctx.clearRect(0, 0, cols, rows);
+                //字体大小，字体为宋体
+                ctx.font = "16px SimSun";
+                // ctx.fillStyle = "#48FF3B";
+                ctx.fillText(txt, 0, 14);
+                var data = ctx.getImageData(0, 0, cols, rows);
+                // var len = data.data.length;
+                var res = '';
+                for (var i = 1; i <= rows; i++) {
+                    for (var j = 1; j <= cols; j++) {
+                        var pos = ((i - 1) * cols + (j)) * 4 - 1;
+                        if (data.data[pos] > 0) {
+                            res += `<span class="black" style="left: ${j * 10}px;top: ${i * 10}px"></span>`;
+                        }
+                    }
+                }
+                wrap.innerHTML = res;
+            }
+
+            function draw() {
+                // var val = $("#intro").val();
+                var info = $("#intro").val();
+                // alert(info);
+                if (info) {
+                    lattice(info);
+                }
+            }
+
+            draw();
+        }
+
+        var sp;
+        var colo = "red";
+
+        function texiao(id, speed, colo2) {
+            var cav = document.getElementById(id);
+            //屏幕可用的宽度（以我的电脑为例，返回值可用宽度为：1536）
+            var w = window.screen.width;
+            // alert(w);
+
+            //屏幕可用的高度（以我的电脑为例，返回值可用高度为：864）
+            var h = window.screen.height;
+            // alert(h);
+
+            //y的位置                 //创建一个300大小的数组
+            var yPositions = Array(300).join(0).split('');
+            //返回一个2d的画板
+            var ctx = cav.getContext('2d');
+
+            //绘制的方法
+            var draw = function () {
+
+                ctx.fillStyle = 'rgba(0,0,0,.05)';
+
+                ctx.fillRect(0, 0, w, h);
+
+                ctx.fillStyle = colo2;
+
+                ctx.font = '20px';
+                yPositions.map(function (y, index) {
+
+                    //接受一个指定的 Unicode 值，然后返回一个字符串
+                    text = String.fromCharCode(1e2 + Math.random() * 330);
+
+                    x = index * 10;
+
+                    cav.getContext('2d').fillText(text, x, y);
+
+                    if (y > Math.random() * 1e4) {
+
+                        yPositions[index] = 0;
+
+                    } else {
+
+                        yPositions[index] = y + 10;
+                    }
+                });
+            };
+
+            setInterval(draw, speed);
+        }
+
+        //改变颜色的方法
+        function changecolor(colo) {
+            clearInterval();
+            texiao("content", sp, colo);
+        }
+
+        // $("#prop").click(function () {
+        //     $("#playerContent").show();
+        // });
+        //点击按钮1，调动播报和点阵图方法，同时清空输入框切获得焦点
+        $("#btn1").click(function () {
+            player();
+            wow();
+            $("#intro").trigger("focus");
+            $("#intro").val("");
+        });
+        //按钮点击开始特效
+        $("#no1").click(function () {
+            sp = 30;
+            texiao("content", sp, colo);
+
+        });
+        //按钮点击加速下落速度
+        $("#no12").click(function () {
+            if (sp == 5) {
+                alert("速度已经最快了！");
+                return;
+            }
+            sp = sp - 5;
+            // alert(sp);
+            clearInterval();
+
+            texiao("content", sp, colo);
+
+        });
+        //显示按钮
+        $("#no14").click(function () {
+            $("#teteid").fadeIn(1000);
+        });
+        //按钮点击，改变颜色
+        $("#colorbt").click(function () {
+            var val = $("#colorId").val();
+            // alert(val);
+            changecolor(val);
+        });
+        //按钮点击隐藏特效
+        $("#no13").click(function () {
+            clearInterval();
+            sp = 30;
+            colo = "red";
+            texiao("content", sp, colo);
+            $("#teteid").fadeOut(1000);
+        })
+    });
+</script>
+</body>
+</html>
